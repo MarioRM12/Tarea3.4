@@ -67,7 +67,7 @@ public class PedidoDAOImpl implements PedidoDAO {
             int idx = 1;
             ps.setDouble(idx++, pedido.getTotal());
             ps.setDate(idx++, new java.sql.Date(pedido.getFecha().getTime()));
-            ps.setInt(idx++, pedido.getCliente().getId());
+            ps.setLong(idx++, pedido.getCliente().getId());
             ps.setInt(idx++, pedido.getComercial().getId());
             return ps;
         },keyHolder);
@@ -131,5 +131,10 @@ public class PedidoDAOImpl implements PedidoDAO {
                 , id
         );
 
+    }
+
+    @Override
+    public List<Pedido> listaPedidosPorComercial(Comercial comercial) {
+        return null;
     }
 }

@@ -11,8 +11,6 @@ public interface PedidoDAO {
 
     public void create(Pedido pedido);
 
-    void create(Cliente cliente);
-
     Optional<Cliente> findClienteBy(int pedidoId);
 
     Optional<Comercial> findComercialBy(int pedidoId);

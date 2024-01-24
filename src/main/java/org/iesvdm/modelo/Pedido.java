@@ -12,8 +12,10 @@ public class Pedido {
 
     private Integer id;
     private Double total;
-    private LocalDate fecha;
+    private Date fecha;
     private Comercial comercial;
     private Cliente cliente;
+
+    public Pedido() {}
 
 }

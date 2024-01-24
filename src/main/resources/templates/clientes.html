@@ -23,12 +23,17 @@
 			<div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 				
 				<div style="position: absolute; left: 39%; top : 39%;">
-					
-						<form action="/clientes/crear">
-							<input type="submit" value="Crear Cliente">
-						</form>
-					</div>
-				
+					<form action="/clientes/crear">
+						<input type="submit" value="Crear Cliente">
+					</form>
+				</div>
+
+				<div style="position: absolute; left: 68%; top : 39%;">
+					<form th:action="@{/}" method="get" style="display: inline;">
+						<input type="submit" value="Volver al inicio" />
+					</form>
+				</div>
+
 			</div>
 		</div>
 		<div class="clearfix">

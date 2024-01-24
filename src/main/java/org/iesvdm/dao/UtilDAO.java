@@ -13,18 +13,18 @@ public class UtilDAO {
         return new Pedido(rs.getInt("id"),
                 rs.getDouble("total"),
                 rs.getDate("fecha"),
+                new Comercial(rs.getInt("CO.id"),
+                        rs.getString("CO.nombre"),
+                        rs.getString("CO.apellido1"),
+                        rs.getString("CO.apellido2"),
+                        rs.getFloat("CO.comisión")
+                ),
                 new Cliente(rs.getInt("C.id"),
                         rs.getString("C.nombre"),
                         rs.getString("C.apellido1"),
                         rs.getString("C.apellido2"),
                         rs.getString("C.ciudad"),
                         rs.getInt("C.categoría")
-                ),
-                new Comercial(rs.getInt("CO.id"),
-                        rs.getString("CO.nombre"),
-                        rs.getString("CO.apellido1"),
-                        rs.getString("CO.apellido2"),
-                        rs.getBigDecimal("CO.comisión")
                 )
         );
     }
@@ -43,6 +43,6 @@ public class UtilDAO {
                 , rs.getString("nombre")
                 , rs.getString("apellido1")
                 , rs.getString("apellido2")
-                , rs.getBigDecimal("comisión"));
+                , rs.getFloat("comisión"));
     }
 }
