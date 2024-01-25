@@ -7,22 +7,22 @@
 </head>
 <body>
 <div>
-    <h1 style="float:none; margin: 0 auto;width: 100%;text-align: center">Elige que quieres consultar</h1>
+    <h1 style="float:none; margin: 0 auto;width: 100%;text-align: center" th:text="#{msg.index.bienvenida}">Elige que quieres consultar</h1>
 
     <div class="clearfix">
         <hr/>
     </div>
 
     <form th:action="@{/pedidos}">
-        <input type="submit" value="Ver Pedidos" />
+        <input type="submit" th:value="#{msg.index.verPedidos}" />
     </form>
 
     <form th:action="@{/clientes}">
-        <input type="submit" value="Ver Clientes" />
+        <input type="submit" th:value="#{msg.index.verClientes}" />
     </form>
 
     <form th:action="@{/comerciales}">
-        <input type="submit" value="Ver Comerciales" />
+        <input type="submit" th:value="#{msg.index.verComerciales}" />
     </form>
 
 </div>

@@ -18,19 +18,19 @@
 <div id="contenedora" style="float:none; margin: 0 auto;width: 95%;" >
     <div class="clearfix">
         <div style="float: left; width: 50%">
-            <h1>Pedidos</h1>
+            <h1 th:text="#{msg.pedidos}">Pedidos</h1>
         </div>
         <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 
             <div style="position: absolute; left: 39%; top : 39%;">
                 <form action="/pedidos/crear">
-                    <input type="submit" value="Crear pedido">
+                    <input type="submit" th:value="#{btn.crear} + ' ' + #{msg.pedido}">
                 </form>
             </div>
 
             <div style="position: absolute; left: 68%; top : 39%;">
                 <form th:action="@{/}" method="get" style="display: inline;">
-                    <input type="submit" value="Volver al inicio" />
+                    <input type="submit" th:value="#{btn.volver}" />
                 </form>
             </div>
 
@@ -41,10 +41,10 @@
     </div>
     <div class="clearfix">
         <div style="float: left;width: 14%">Id</div>
-        <div style="float: left;width: 14%">Total</div>
-        <div style="float: left;width: 14%">Fecha</div>
         <div style="float: left;width: 14%">Cliente</div>
         <div style="float: left;width: 14%">Comercial</div>
+        <div style="float: left;width: 14%">Fecha</div>
+        <div style="float: left;width: 14%">Total</div>
     </div>
     <div class="clearfix">
         <hr/>
@@ -52,10 +52,11 @@
 
     <div  th:each="pedido : ${listaPedidos}" style="margin-top: 6px;" class="clearfix">
         <div style="float: left;width: 14%" th:text="${pedido.id}">id</div>
-        <div style="float: left;width: 14%" th:text="${pedido.total}">total</div>
-        <div style="float: left;width: 14%" th:text="${pedido.fecha}">fecha</div>
         <div style="float: left;width: 14%" th:text="${pedido.cliente.nombre ?: '&nbsp;'}">cliente</div>
         <div style="float: left;width: 14%" th:text="${pedido.comercial.nombre}">comercial</div>
+        <div style="float: left;width: 14%" th:text="${pedido.fecha}">fecha</div>
+        <div style="float: left;width: 14%" th:text="${pedido.total}">total</div>
+
         <div style="float: none;width: auto;overflow: hidden;">
 
             <form th:action="@{/pedido/__${pedido.id}__}" style="display: inline;">
