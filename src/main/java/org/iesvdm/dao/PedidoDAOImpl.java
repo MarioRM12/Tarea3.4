@@ -83,7 +83,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     public List<Pedido> getAll() {
 
         List<Pedido> listPedido = this.jdbcTemplate.query("""
-                SELECT * FROM  lpedido P left join cliente C on  P.id_cliente = C.id
+                SELECT * FROM  pedido P left join cliente C on  P.id_cliente = C.id
                                         left join comercial CO on P.id_comercial = CO.id
                 """, (rs, rowNum) -> UtilDAO.newPedido(rs)
         );
