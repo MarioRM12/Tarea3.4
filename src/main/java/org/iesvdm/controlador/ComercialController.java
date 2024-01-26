@@ -44,6 +44,7 @@ public class ComercialController {
         model.addAttribute("comercial", comercial);
         List<Pedido> listPedido = pedidoService.getAllPedidosByIdComercial(id);
         model.addAttribute("listPedido", listPedido);
+        //List<Double> TotalMedia =
 
         return "detalle-comercial";
     }

@@ -25,10 +25,14 @@ public class ComercialService {
 
     public Comercial one(Integer id) {
         Optional<Comercial> optCom = ComercialDAO.find(id);
+
+        //2 formas de hacerlo 1º:
         /*if (optCom.isPresent())
             return optCom.get();
         else
             return null;*/
+
+        //2º :
         return optCom.orElse(null);
     }
 

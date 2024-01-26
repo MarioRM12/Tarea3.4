@@ -65,7 +65,7 @@ public class PedidoService {
     public List<Pedido> getAllPedidosByIdComercial(int id){
 
         List<Pedido> listPedido = this.pedidoDAO.getAll().stream()
-                .filter(pedido -> pedido.getCliente().getId() == id)
+                .filter(pedido -> pedido.getComercial().getId() == id)
                 .toList();
 
         return listPedido;
