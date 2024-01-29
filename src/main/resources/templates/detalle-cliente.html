@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Detalles del Cliente</title>
+    <th:block th:include="fragments/generales.html :: Bootstrap"/>
     <style>
         .clearfix::after {
             content: "";
@@ -54,7 +55,7 @@
     </div>
     <div class="clearfix">
         <form th:action="@{/clientes}" method="get" style="display: inline;">
-            <input type="submit" th:value="#{btn.clientes.volver}" />
+            <input type="submit" class="btn btn-primary" th:value="#{btn.clientes.volver}" />
         </form>
     </div>
 </div>

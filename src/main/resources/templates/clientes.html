@@ -1,16 +1,16 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Clientes</title>
-<style>
-.clearfix::after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-</style>
+	<meta charset="UTF-8">
+	<title>Clientes</title>
+	<th:block th:include="fragments/generales.html :: Bootstrap"/>
+	<style>
+	.clearfix::after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+	</style>
 </head>
 <body>
 <body>
@@ -24,13 +24,13 @@
 				
 				<div style="position: absolute; left: 39%; top : 39%;">
 					<form action="/clientes/crear">
-						<input type="submit" th:value="#{btn.crear} + ' ' + #{msg.campos.cliente}">
+						<input type="submit" class="btn btn-primary" th:value="#{btn.crear} + ' ' + #{msg.campos.cliente}">
 					</form>
 				</div>
 
 				<div style="position: absolute; left: 68%; top : 39%;">
 					<form th:action="@{/}" method="get" style="display: inline;">
-						<input type="submit" th:value="#{btn.volver}" />
+						<input type="submit" class="btn btn-primary"  th:value="#{btn.volver}" />
 					</form>
 				</div>
 
@@ -62,15 +62,15 @@
 			<div style="float: none;width: auto;overflow: hidden;">
 
 				<form th:action="@{/cliente/__${cliente.id}__}" style="display: inline;">
-					<input type="submit" th:value="#{btn.detalle}" />
+					<input type="submit" class="btn btn-primary" th:value="#{btn.detalle}" />
 				</form>
 
 				<form th:action="@{/clientes/editar/}+${cliente.id} " style="display: inline;">
-    				<input type="submit" th:value="#{btn.editar}" />
+    				<input type="submit" class="btn btn-warning" th:value="#{btn.editar}" />
 				</form>
 
 				<form th:action="@{/clientes/borrar/__${cliente.id}__}" method="post" style="display: inline;">
-    				<input type="submit" th:value="#{btn.borrar}" style="background-color: #ff6565;" />
+    				<input type="submit" class="btn btn-danger" th:value="#{btn.borrar}"/>
 				</form>
 
 			</div>

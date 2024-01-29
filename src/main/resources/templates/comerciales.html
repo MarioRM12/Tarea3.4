@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Comerciales</title>
+    <th:block th:include="fragments/generales.html :: Bootstrap"/>
     <style>
         .clearfix::after {
             content: "";
@@ -24,13 +25,13 @@
 
             <div style="position: absolute; left: 39%; top : 39%;">
                 <form action="/comerciales/crear">
-                    <input type="submit" th:value="#{btn.crear} + ' ' + #{msg.campos.comercial}">
+                    <input type="submit" class="btn btn-primary" th:value="#{btn.crear} + ' ' + #{msg.campos.comercial}">
                 </form>
             </div>
 
             <div style="position: absolute; left: 68%; top : 39%;">
                 <form th:action="@{/}" method="get" style="display: inline;">
-                    <input type="submit" th:value="#{btn.volver}" />
+                    <input type="submit" class="btn btn-primary" th:value="#{btn.volver}" />
                 </form>
             </div>
 
@@ -59,13 +60,13 @@
         <div style="float: left;width: 14%" th:text="${comercial.comision}">comisión</div>
         <div style="float: none;width: auto;overflow: hidden;">
             <form th:action="@{/comercial/__${comercial.id}__}" style="display: inline;">
-                <input type="submit" th:value="#{btn.detalle}" />
+                <input type="submit" class="btn btn-primary" th:value="#{btn.detalle}" />
             </form>
             <form th:action="@{/comerciales/editar/}+${comercial.id} " style="display: inline;">
-                <input type="submit" th:value="#{btn.editar}" />
+                <input type="submit" class="btn btn-warning" th:value="#{btn.editar}" />
             </form>
             <form th:action="@{/comerciales/borrar/__${comercial.id}__}" method="post" style="display: inline;">
-                <input type="submit" th:value="#{btn.borrar}" style="background-color: #ff6565;" />
+                <input type="submit" class="btn btn-danger" th:value="#{btn.borrar}"/>
             </form>
         </div>
     </div>

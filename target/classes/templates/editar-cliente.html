@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Cliente</title>
+    <th:block th:include="fragments/generales.html :: Bootstrap"/>
     <style>
         .clearfix::after {
             content: "";
@@ -23,7 +24,7 @@
             <div style="float: none;width: auto;overflow: hidden;min-height: 80px;position: relative;">
 
                 <div style="position: absolute; left: 39%; top : 39%;">
-                    <input type="submit" th:value="#{btn.guardar}" />
+                    <input type="submit" class="btn btn-primary" th:value="#{btn.guardar}" />
                 </div>
 
             </div>

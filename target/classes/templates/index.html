@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/styles.css">
+    <th:block th:include="fragments/generales.html :: Bootstrap"/>
     <title>Inicio</title>
 </head>
 <body>
@@ -14,15 +15,15 @@
     </div>
 
     <form th:action="@{/pedidos}">
-        <input type="submit" th:value="#{msg.index.verPedidos}" />
+        <input type="submit" class="btn btn-primary" th:value="#{msg.index.verPedidos}" />
     </form>
 
     <form th:action="@{/clientes}">
-        <input type="submit" th:value="#{msg.index.verClientes}" />
+        <input type="submit" class="btn btn-primary"  th:value="#{msg.index.verClientes}" />
     </form>
 
     <form th:action="@{/comerciales}">
-        <input type="submit" th:value="#{msg.index.verComerciales}" />
+        <input type="submit" class="btn btn-primary" th:value="#{msg.index.verComerciales}" />
     </form>
 
 </div>
