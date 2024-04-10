@@ -3,7 +3,7 @@ package org.iesvdm.service;
 import java.util.List;
 import java.util.Optional;
 import org.iesvdm.dao.ComercialDAO;
-import org.iesvdm.modelo.Comercial;
+import org.iesvdm.domain.Comercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

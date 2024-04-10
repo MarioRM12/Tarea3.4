@@ -1,12 +1,17 @@
 package org.iesvdm.controlador;
 
-import org.iesvdm.modelo.Cliente;
-import org.iesvdm.modelo.Pedido;
+import jakarta.validation.Valid;
+import org.iesvdm.domain.Cliente;
+import org.iesvdm.domain.Comercial;
+import org.iesvdm.domain.Pedido;
+import org.iesvdm.dto.PedidoFormDTO;
+import org.iesvdm.mapper.PedidoMapper;
 import org.iesvdm.service.ClienteService;
 import org.iesvdm.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +23,9 @@ import java.util.List;
 public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
+
     @Autowired
-    private ClienteService clienteService;
+    private PedidoMapper pedidoMapper;
 
     @GetMapping("/pedidos")
     public String listar(Model model) {
@@ -43,19 +49,39 @@ public class PedidoController {
     @GetMapping("/pedido/crear")
     public String crear(Model model) {
 
-        Pedido pedido = new Pedido();
-        model.addAttribute("pedido", pedido);
+        PedidoFormDTO pedidoFormDTO = new PedidoFormDTO();
+        model.addAttribute("pedidoFormDTO", pedidoFormDTO);
+
+        List<Cliente> listaClientes = this.pedidoService.getAllClientes();
+        model.addAttribute("listaClientes", listaClientes);
+
+        List<Comercial> listaComerciales = this.pedidoService.getAllComercial();
+        model.addAttribute("listaComerciales", listaComerciales);
 
         return "crear-pedido";
 
     }
 
     @PostMapping("/pedido/crear")
-    public RedirectView submitCrear(@ModelAttribute("pedido") Pedido pedido) {
+    public String submitCrear(@Valid @ModelAttribute("pedidoFormDTO") PedidoFormDTO pedidoFormDTO, BindingResult bindingResult, Model model, @PathVariable Integer id) {
 
-        pedidoService.newpedido(pedido);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pedidoFormDTO", pedidoFormDTO);
 
-        return new RedirectView("/pedidos") ;
+            List<Cliente> listaClientes = this.pedidoService.getAllClientes();
+            model.addAttribute("listaClientes", listaClientes);
+
+            List<Comercial> listaComerciales = this.pedidoService.getAllComercial();
+            model.addAttribute("listaComerciales", listaComerciales);
+
+            return "crear-pedido";
+        }
+
+        Pedido pedido = pedidoMapper.pedidoFormDTOAPedido(pedidoFormDTO);
+
+        pedidoService.create(pedido);
+
+        return "redirect:/pedidos?newPedidoID="+pedido.getId();
 
     }
 
@@ -64,27 +90,48 @@ public class PedidoController {
     public String editar(Model model, @PathVariable Integer id) {
 
         Pedido pedido = pedidoService.one(id);
-        model.addAttribute("pedido", pedido);
+        PedidoFormDTO pedidoFormDTO = this.pedidoMapper.pedidoAPedidoFormDTO(pedido);
+        model.addAttribute("pedidoFormDTO", pedidoFormDTO);
+
+        List<Cliente> listaClientes = this.pedidoService.getAllClientes();
+        model.addAttribute("listaClientes", listaClientes);
+
+        List<Comercial> listaComerciales = this.pedidoService.getAllComercial();
+        model.addAttribute("listaComerciales", listaComerciales);
 
         return "editar-pedido";
 
     }
 
 
+
     @PostMapping("/pedido/editar/{id}")
-    public RedirectView submitEditar(@ModelAttribute("pedido") Pedido pedido) {
+    public String submitEditar(@Valid @ModelAttribute("pedidoFormDTO") PedidoFormDTO pedidoFormDTO, BindingResult bindingResult, Model model) {
 
-        pedidoService.replacePedido(pedido);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pedidoFormDTO", pedidoFormDTO);
 
-        return new RedirectView("/clientes");
+            List<Cliente> listaClientes = this.pedidoService.getAllClientes();
+            model.addAttribute("listaClientes", listaClientes);
+
+            List<Comercial> listaComerciales = this.pedidoService.getAllComercial();
+            model.addAttribute("listaComerciales", listaComerciales);
+
+            return "editar-pedido";
+        }
+
+        Pedido pedido = this.pedidoMapper.pedidoFormDTOAPedido(pedidoFormDTO);
+        pedidoService.replace(pedido);
+
+        return "redirect:/pedidos?editPedidoID="+pedido.getId();
     }
 
-    @PostMapping("/pedido/borrar/{id}")
+    @PostMapping("/pedidos/borrar/{id}")
     public RedirectView submitBorrar(@PathVariable Integer id) {
 
         pedidoService.delete(id);
 
-        return new RedirectView("/pedidos");
+        return new RedirectView("/pedidos?borradoPedidoID="+id);
     }
 
 

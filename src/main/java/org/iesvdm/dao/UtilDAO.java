@@ -1,8 +1,8 @@
 package org.iesvdm.dao;
 
-import org.iesvdm.modelo.Cliente;
-import org.iesvdm.modelo.Comercial;
-import org.iesvdm.modelo.Pedido;
+import org.iesvdm.domain.Cliente;
+import org.iesvdm.domain.Comercial;
+import org.iesvdm.domain.Pedido;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,13 +1,9 @@
 package org.iesvdm.dao;
 
 import lombok.extern.slf4j.Slf4j;
-import org.iesvdm.dao.PedidoDAO;
-import org.iesvdm.modelo.Cliente;
-import org.iesvdm.modelo.Comercial;
-import org.iesvdm.modelo.Pedido;
-import org.iesvdm.modelo.Cliente;
-import org.iesvdm.modelo.Comercial;
-import org.iesvdm.modelo.Pedido;
+import org.iesvdm.domain.Cliente;
+import org.iesvdm.domain.Comercial;
+import org.iesvdm.domain.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;

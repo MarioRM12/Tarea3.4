@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.iesvdm.dao.ClienteDAO;
 import org.iesvdm.dao.ComercialDAO;
 import org.iesvdm.dao.PedidoDAO;
-import org.iesvdm.modelo.Cliente;
-import org.iesvdm.modelo.Comercial;
-import org.iesvdm.modelo.Pedido;
+import org.iesvdm.domain.Cliente;
+import org.iesvdm.domain.Comercial;
+import org.iesvdm.domain.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +25,14 @@ public class PedidoService {
     @Autowired
     private ComercialDAO comercialDAO;
 
+    public List<Cliente> getAllClientes() {return this.clienteDAO.getAll();}
+    public List<Comercial> getAllComercial() { return this.comercialDAO.getAll(); }
+
     public List<Pedido> getAll() {
         return this.pedidoDAO.getAll();
     }
+
+    public List<Pedido> listAll() {return this.pedidoDAO.getAll();}
 
     public Pedido one(int id) {
         Optional<Pedido> pedidoOptional =this.pedidoDAO.find(id);
@@ -69,6 +74,14 @@ public class PedidoService {
                 .toList();
 
         return listPedido;
+    }
+
+    public void replace(Pedido pedido) {
+
+        if (pedido.getComercial().getId() > 0) this.pedidoDAO.update(pedido);
+        else this.pedidoDAO.updateSinComercial(pedido);
+        log.info("Actualizado pedido con id {}", pedido.getId());
+        log.debug("Pedido Actualizaro:\n{}", pedido.toString());
     }
 
 

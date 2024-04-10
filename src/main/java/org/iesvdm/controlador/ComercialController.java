@@ -1,9 +1,8 @@
 package org.iesvdm.controlador;
 import java.util.List;
-import org.iesvdm.modelo.Cliente;
-import org.iesvdm.modelo.Comercial;
-import org.iesvdm.modelo.Pedido;
-import org.iesvdm.service.ClienteService;
+
+import org.iesvdm.domain.Comercial;
+import org.iesvdm.domain.Pedido;
 import org.iesvdm.service.ComercialService;
 import org.iesvdm.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;

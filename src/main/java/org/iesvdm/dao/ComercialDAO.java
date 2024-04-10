@@ -3,7 +3,7 @@ package org.iesvdm.dao;
 import java.util.List;
 import java.util.Optional;
 
-import org.iesvdm.modelo.Comercial;
+import org.iesvdm.domain.Comercial;
 
 public interface ComercialDAO {
 	

@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.iesvdm.dao.ClienteDAO;
 import org.iesvdm.dao.ComercialDAO;
-import org.iesvdm.modelo.Cliente;
-import org.iesvdm.modelo.Comercial;
+import org.iesvdm.domain.Cliente;
+import org.iesvdm.domain.Comercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
