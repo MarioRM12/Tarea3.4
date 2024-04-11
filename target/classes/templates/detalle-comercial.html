@@ -44,27 +44,39 @@
     <div class="clearfix">
         <hr/>
     </div>
-    <div class="clearfix">
-        <h2 th:text="#{msg.comerciales.pedidos}">Pedidos de este comercial</h2>
-    </div>
-    <div class="clearfix">
-        <hr/>
-    </div>
-    <div class="clearfix">
-        <div style="float: left;width: 14%" th:text="#{msg.campos.id}">Id</div>
-        <div style="float: left;width: 14%" th:text="#{msg.campos.total}">Total</div>
-        <div style="float: left;width: 14%" th:text="#{msg.campos.fecha}">Fecha</div>
-        <div style="float: left;width: 14%" th:text="#{msg.campos.cliente}">Cliente</div>
-    </div>
-    <div  th:each="pedido : ${listPedido}" style="margin-top: 6px;" class="clearfix">
-        <div style="float: left;width: 14%" th:text="${pedido.id}">id</div>
-        <div style="float: left;width: 14%" th:text="${pedido.total}">Total</div>
-        <div style="float: left;width: 14%" th:text="${pedido.fecha}">Fecha</div>
-        <div style="float: left;width: 14%" th:text="${pedido.cliente.nombre}">Cliente</div>
-        <div style="float: none;width: auto;overflow: hidden;"></div>
-        <form th:action="@{/cliente/__${pedido.cliente.id}__}" method="get" style="display: inline;">
-            <input type="submit" class="btn btn-primary" th:value="#{btn.detalle}" />
-        </form>
+    <div style="margin-top: 20px;" class="clearfix">
+        <h3>Pedidos Asociados</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <table>
+                <tr th:each="pedido, iterStat : ${listaPedidos}"
+                    th:class="${iterStat.index == 0 ? 'fila-amarilla' : (iterStat.index == #lists.size(listaPedidos) - 1 ? 'fila-verde' : '')}">
+                    <td th:text="${pedido.id}"></td>
+                    <td style="padding-left: 350px" th:text="${pedido.total}"></td>
+                </tr>
+            </table>
+            </tbody>
+        </table>
+
+        <style>
+            .fila-amarilla {
+                background-color: yellow;
+            }
+            .fila-verde {
+                background-color: green;
+            }
+        </style>
+        <div class="clearfix">
+            <hr/>
+        </div>
+        <p style="background-color: yellow">Menor total</p>
+        <p style="background-color: green">Mayor total</p>
     </div>
     <div class="clearfix">
         <hr/>
