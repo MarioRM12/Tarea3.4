@@ -11,25 +11,26 @@ import lombok.Data;
 @AllArgsConstructor
 public class Cliente {
 
+	@Min(value=0, message = "{msg.valid.min}")
 	private long id;
 
-	@NotBlank(message = "El nombre es obligatorio")
-	@Size(max = 30, message = "El nombre no puede tener más de 30 caracteres")
+	@NotBlank(message = "{msg.valid.not.blank}")
+	@Max(value = 30, message = "{msg.valid.max}")
 	private String nombre;
 
-	@NotBlank(message = "El primer apellido es obligatorio")
-	@Size(max = 30, message = "El primer apellido no puede tener más de 30 caracteres")
+	@NotBlank(message = "{msg.valid.not.blank}")
+	@Max(value = 30, message = "{msg.valid.max}")
 	private String apellido1;
 
 	private String apellido2;
 
-	@NotBlank(message = "La ciudad es obligatoria")
-	@Size(max = 50, message = "La ciudad no puede tener más de 50 caracteres")
+	@NotBlank(message = "{msg.valid.not.blank}")
+	@Max(value = 50, message = "{msg.valid.max}")
 	private String ciudad;
 
-	@NotNull(message = "La categoría es obligatoria")
-	@Min(value = 100, message = "La categoría debe ser mayor o igual a 100")
-	@Max(value = 1000, message = "La categoría debe ser menor o igual a 1000")
+	@NotNull(message = "{msg.valid.not.null}")
+	@Min(value = 100, message = "{msg.valid.min}")
+	@Max(value = 1000, message = "{msg.valid.max}")
 	private int categoria;
 
 	public Cliente() {

@@ -128,6 +128,13 @@ public class PedidoDAOImpl implements PedidoDAO {
         );
 
     }
+    @Override
+    public List<Pedido> listaPedidosIdComercial(int id){
+        List<Pedido> pedidos = jdbcTemplate.query("""
+                SELECT * FROM pedido p left join cliente c on p.id_cliente = c.id left join comercial co on p.id_comercial = co.id where p.id_comercial = ?
+                """, (rs, rowNum) -> UtilDAO.newPedido(rs), id);
+        return pedidos;
+    }
 
     @Override
     public List<Pedido> listaPedidosPorComercial(Comercial comercial) {

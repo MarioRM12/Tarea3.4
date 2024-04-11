@@ -104,7 +104,7 @@ public class SpringBootWebMvcJdbcVentasApplication implements CommandLineRunner{
 		}
 
 		// Como es un cliente nuevo a persistir, id a 0
-		Comercial comercialnew = new Comercial(0, "Jose M", "Martín", null, 20);
+		Comercial comercialnew = new Comercial(0, "Jose M", "Martín", null, 20F);
 
 		//create actualiza el id
 		comercialDAO.create(comercialnew);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.iesvdm.domain.Cliente;
+import org.iesvdm.domain.Comercial;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -145,6 +146,114 @@ public class ClienteDAOImpl implements ClienteDAO {
 		
 		log.info("Delete de Cliente con {} registros eliminados.", rows);		
 		
+	}
+
+	@Override
+	public List<Cliente> getAllOrd() {
+		List<Cliente> listCli = jdbcTemplate.query(
+				"""
+						SELECT c.*, COALESCE(SUM(p.total), 0) AS total
+						FROM cliente c
+						LEFT JOIN pedido p ON c.id = p.id_cliente
+						GROUP BY c.id
+						ORDER BY total DESC;
+						""",
+				(rs, rowNum) -> new Cliente(rs.getInt("id"),rs.getString("nombre"), rs.getString("apellido1"), rs.getString("apellido2"), rs.getString("ciudad"), rs.getInt("categoría"))
+		);
+		return listCli;
+	}
+	@Override
+	public List<Double> getAllSuma(){
+		List<Double> listsumas = jdbcTemplate.query(
+				"""
+                        SELECT id_cliente, SUM(totaL) AS total
+                        FROM pedido
+                        GROUP BY id_cliente
+                        ORDER BY total DESC;
+                        """,
+				(rs, rowNum) -> (rs.getDouble("total"))
+		);
+
+		return listsumas;
+	}
+
+	@Override
+	public List<Comercial> getAllByCliente(int id) {
+		String sql = """
+          SELECT DISTINCT c.*
+          FROM cliente cl
+          LEFT JOIN pedido p ON cl.id = p.id_cliente
+          LEFT JOIN comercial c ON p.id_comercial = c.id
+          WHERE cl.id = ?
+          
+        """;
+
+		return jdbcTemplate.query(sql, (rs, rowNum) -> {
+			Comercial comercial = new Comercial();
+			comercial.setId(rs.getInt("id"));
+			comercial.setNombre(rs.getString("nombre"));
+			comercial.setApellido1(rs.getString("apellido1"));
+			comercial.setApellido2(rs.getString("apellido2"));
+			comercial.setComision(rs.getFloat("comisión"));
+			return comercial;
+		}, id);
+
+	}
+
+	@Override
+	public int conteoUltimoTrimestre(Cliente  cliente) {
+
+		String sql = """
+                SELECT COUNT(*)
+                FROM pedido
+                JOIN comercial  ON comercial.id = pedido.id_comercial
+                WHERE id_cliente = ?
+                AND fecha >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH)
+                """;
+
+		return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
+	}
+
+	@Override
+	public int conteoUltimoSemestre(Cliente cliente) {
+
+		String sql = """
+                SELECT COUNT(*)
+                FROM pedido
+                JOIN comercial  ON comercial.id = pedido.id_comercial
+                WHERE id_cliente = ?
+                AND fecha >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+                """;
+
+		return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
+	}
+
+	@Override
+	public int conteoUltimoAnio(Cliente cliente) {
+
+		String sql = """
+                SELECT COUNT(*)
+                FROM pedido
+                JOIN comercial ON comercial.id = pedido.id_comercial
+                WHERE id_cliente = ?
+                AND fecha >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+                """;
+
+		return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
+	}
+
+	@Override
+	public int conteoUltimoLustro(Cliente cliente) {
+
+		String sql = """
+                SELECT COUNT(*)
+                FROM pedido
+                JOIN comercial ON comercial.id = pedido.id_comercial
+                WHERE id_cliente = ?
+                AND fecha >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR)
+                """;
+
+		return jdbcTemplate.queryForObject(sql, Integer.class, cliente.getId());
 	}
 	
 }

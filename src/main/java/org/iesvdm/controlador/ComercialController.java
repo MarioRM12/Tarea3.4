@@ -1,8 +1,10 @@
 package org.iesvdm.controlador;
 import java.util.List;
 
+import org.iesvdm.domain.Cliente;
 import org.iesvdm.domain.Comercial;
 import org.iesvdm.domain.Pedido;
+import org.iesvdm.service.ClienteService;
 import org.iesvdm.service.ComercialService;
 import org.iesvdm.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class ComercialController {
     private ComercialService comercialService;
     @Autowired
     private PedidoService pedidoService;
+    @Autowired
+    private ClienteService clienteService;
 
     public ComercialController(ComercialService comercialService) {
         this.comercialService = comercialService;
@@ -39,11 +43,16 @@ public class ComercialController {
     @GetMapping("/comercial/{id}")
     public String detalle(Model model, @PathVariable Integer id ) {
 
+        List<Pedido> pedidos = pedidoService.devolverListaPedidos(id);
+        Double media = pedidoService.media(id);
         Comercial comercial = comercialService.one(id);
+        List<Cliente> clientes = clienteService.listAllOrdPorTotal();
+        List<Double> sumas = clienteService.sumasOrdenadas();
         model.addAttribute("comercial", comercial);
-        List<Pedido> listPedido = pedidoService.getAllPedidosByIdComercial(id);
-        model.addAttribute("listPedido", listPedido);
-        //List<Double> TotalMedia =
+        model.addAttribute("listaPedidos", pedidos);
+        model.addAttribute("media", media);
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("sumas", sumas);
 
         return "detalle-comercial";
     }

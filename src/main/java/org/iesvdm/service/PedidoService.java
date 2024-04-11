@@ -10,8 +10,10 @@ import org.iesvdm.domain.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
 @Slf4j
 @Service
@@ -82,6 +84,17 @@ public class PedidoService {
         else this.pedidoDAO.updateSinComercial(pedido);
         log.info("Actualizado pedido con id {}", pedido.getId());
         log.debug("Pedido Actualizaro:\n{}", pedido.toString());
+    }
+
+    public List<Pedido> devolverListaPedidos(int id){
+        List<Pedido> pedidosOrdenados = pedidoDAO.listaPedidosIdComercial(id).stream()
+                .sorted(Comparator.comparing(pedido -> pedido.getTotal())).toList();
+        return pedidosOrdenados ;
+    }
+    public double media(int id){
+        OptionalDouble mediaOpt = pedidoDAO.listaPedidosIdComercial(id).stream()
+                .mapToDouble(Pedido::getTotal).average();
+        return mediaOpt.getAsDouble();
     }
 
 

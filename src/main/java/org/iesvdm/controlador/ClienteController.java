@@ -3,6 +3,7 @@ package org.iesvdm.controlador;
 import java.util.List;
 
 import org.iesvdm.domain.Cliente;
+import org.iesvdm.domain.Comercial;
 import org.iesvdm.service.ClienteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,27 @@ public class ClienteController {
 
 		Cliente cliente = clienteService.one(id);
 		model.addAttribute("cliente", cliente);
+
+		List<Comercial> comerciales = clienteService.listadoComerciales(id);
+
+		// Mapear la lista de comerciales a una lista de ComercialDTO
+		int conteotrimestre =clienteService.calcularConteoPedidosUltimoTrimestre(cliente);
+
+		model.addAttribute("conteoUltimoTrimestre", conteotrimestre);
+
+		int conteoSemestre=clienteService.calcularConteoPedidosUltimoSemestre(cliente);
+
+		model.addAttribute("conteoUltimoSemestre", conteoSemestre);
+
+		int conteoAnio =clienteService.calcularConteoPedidosUltimoAnio(cliente);
+
+		model.addAttribute("conteoUltimoAnio", conteoAnio);
+		int conteoLustro =clienteService.calcularConteoPedidosUltimoLustro(cliente);
+
+		model.addAttribute("conteoUltimoLustro", conteoLustro);
+
+		// Agregar la lista de comerciales al modelo
+		model.addAttribute("comerciales", comerciales);
 
 		return "detalle-cliente";
 

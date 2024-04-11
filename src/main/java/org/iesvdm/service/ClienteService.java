@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.iesvdm.dao.ClienteDAO;
 import org.iesvdm.domain.Cliente;
+import org.iesvdm.domain.Comercial;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,6 +34,13 @@ public class ClienteService {
 			return null;
 	}
 
+	public List<Cliente> listAllOrdPorTotal(){
+		return clienteDAO.getAllOrd();
+	}
+	public List<Double> sumasOrdenadas(){
+		return clienteDAO.getAllSuma();
+	}
+
 	public void newcliente(Cliente cliente) {
 
 		clienteDAO.create(cliente);
@@ -49,6 +57,25 @@ public class ClienteService {
 
 		clienteDAO.delete(id);
 
+	}
+
+	public List<Comercial> listadoComerciales(int id){
+		return clienteDAO.getAllByCliente(id);
+	}
+	public int calcularConteoPedidosUltimoTrimestre(Cliente cliente) {
+		return clienteDAO.conteoUltimoTrimestre(cliente);
+	}
+
+	public int calcularConteoPedidosUltimoSemestre(Cliente cliente) {
+		return clienteDAO.conteoUltimoSemestre(cliente);
+	}
+
+	public int calcularConteoPedidosUltimoAnio(Cliente cliente) {
+		return clienteDAO.conteoUltimoAnio(cliente);
+	}
+
+	public int calcularConteoPedidosUltimoLustro(Cliente cliente) {
+		return clienteDAO.conteoUltimoLustro(cliente);
 	}
 
 

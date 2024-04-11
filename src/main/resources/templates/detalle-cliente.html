@@ -58,6 +58,41 @@
             <input type="submit" class="btn btn-primary" th:value="#{btn.clientes.volver}" />
         </form>
     </div>
+
+    <div class="clearfix">
+        <hr/>
+    </div>
+
+    <!-- Comerciales Asociados y pedidos -->
+    <div style="margin-top: 20px;" class="clearfix">
+        <h3>Comerciales Asociados</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Comisión</th>
+                <th>Conteo Pedidos Último Trimestre</th>
+                <th>Conteo Pedidos Último Semestre</th>
+                <th>Conteo Pedidos Último Año</th>
+                <th>Conteo Pedidos Último Lustro</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comercial : ${comerciales}">
+                <td th:text="${comercial.nombre}"></td>
+                <td th:text="${comercial.getApellido1()}"></td>
+                <td th:text="${comercial.getComision()}"></td>
+                <td th:text="${conteoUltimoTrimestre}"></td>
+                <td th:text="${conteoUltimoSemestre}"></td>
+                <td th:text="${conteoUltimoAnio}"></td>
+                <td th:text="${conteoUltimoLustro}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 </body>
 </html>

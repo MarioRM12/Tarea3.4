@@ -25,6 +25,8 @@ public interface PedidoDAO {
     public void delete(long id);
     public void updateSinComercial(Pedido pedido);
 
+    public List<Pedido> listaPedidosIdComercial (int id);
+
     public List<Pedido> listaPedidosPorComercial(Comercial comercial);
 
 }
